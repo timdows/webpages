@@ -63,7 +63,7 @@ class TemperatureDayReading
      */
     public function getDate()
     {
-        return $this->date;
+        return $this->date->format("Y-m-d");
     }
 
  /**

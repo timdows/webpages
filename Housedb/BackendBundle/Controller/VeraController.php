@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use BackendBundle\ClientModels\SevenSegment;
 use BackendBundle\Entity\VeraCache;
 use BackendBundle\Entity\VeraCacheRefresher;
+use BackendBundle\ClientModels\TemperatureGraph;
 
 /**
  * @Route("/vera")
@@ -38,21 +39,7 @@ class VeraController extends Controller
         
         //Get historic usage in kWh
         $repository = $this->getDoctrine()->getRepository('BackendBundle\Entity\VeraCache');
-//         $lastWeekStartLow = $repository->findOneByVariable("lastWeekStartLow");
-//         $clientModel->lastWeekStartLow = $lastWeekStartLow->getValue();
-//         $clientModel->lastWeekStartHigh = $repository->findOneByVariable("lastWeekStartHigh")->getValue();
-//         $clientModel->lastWeekStopLow = $repository->findOneByVariable("lastWeekStopLow")->getValue();
-//         $clientModel->lastWeekStopHigh = $repository->findOneByVariable("lastWeekStopHigh")->getValue();
-//         $clientModel->lastWeekLow = $repository->findOneByVariable("lastWeekLow")->getValue();
-//         $clientModel->lastWeekHigh = $repository->findOneByVariable("lastWeekHigh")->getValue();
         $clientModel->lastWeekTotal = $repository->findOneByVariable("lastWeekTotal")->getValue();
-        
-//         $clientModel->thisWeekStartLow = $repository->findOneByVariable("thisWeekStartLow")->getValue();
-//         $clientModel->thisWeekStopLow = $repository->findOneByVariable("thisWeekStopLow")->getValue();
-//         $clientModel->thisWeekLow = $repository->findOneByVariable("thisWeekLow")->getValue();
-//         $clientModel->thisWeekStartHigh = $repository->findOneByVariable("thisWeekStartHigh")->getValue();
-//         $clientModel->thisWeekStopHigh = $repository->findOneByVariable("thisWeekStopHigh")->getValue();
-//         $clientModel->thisWeekHigh = $repository->findOneByVariable("thisWeekHigh")->getValue();
         $clientModel->thisWeekTotal = $repository->findOneByVariable("thisWeekTotal")->getValue();
         
         $clientModel->lastMonthTotal = $repository->findOneByVariable("lastMonthTotal")->getValue();
@@ -81,4 +68,32 @@ class VeraController extends Controller
         
         return $rawResponse->series[0]->data[0][1];
     }
+    
+    /**
+     * @Route("/temperaturegraph/{deviceId}/{type}")
+     */
+    public function temperatureGraph($deviceId, $type){
+        $repository = $this->getDoctrine()->getRepository('BackendBundle\Entity\Device');
+        $device = $repository->find($deviceId);
+        
+        $clientModel = new TemperatureGraph($this->getDoctrine()->getManager());
+        $clientModel->setDevice($device);
+        
+        switch($type){
+            case "7days":
+                $clientModel->fillLast7DaysReadings();
+                break;
+            case "1month":
+                $clientModel->fillLastMonthReadings();
+                break;
+        }
+        
+        $serializer = new Serializer(array(new GetSetMethodNormalizer()), array('json' => new JsonEncoder()));
+        $json = $serializer->serialize($clientModel, 'json');
+        
+        $response = new Response($json);
+        $response->headers->set('Content-Type', 'application/json');
+        
+        return $response;
+    }    
 }
