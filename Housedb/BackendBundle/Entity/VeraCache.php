@@ -33,6 +33,11 @@ class VeraCache
     protected $updated;
     
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $urlRequested;
+    
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
@@ -44,6 +49,11 @@ class VeraCache
     public function __construct($variable, $value){
         $this->variable = $variable;
         $this->value = $value;
+    }
+    
+    public function setValueAndUrl($valObject){
+        $this->value = $valObject->value;
+        $this->urlRequested = $valObject->url;
     }
     
  /**
@@ -109,6 +119,23 @@ class VeraCache
     {
         $this->updated = $updated;
     }
+    
+ /**
+     * @return the $urlRequested
+     */
+    public function getUrlRequested()
+    {
+        return $this->urlRequested;
+    }
+
+ /**
+     * @param field_type $urlRequested
+     */
+    public function setUrlRequested($urlRequested)
+    {
+        $this->urlRequested = $urlRequested;
+    }
+
 
 
     

@@ -51,16 +51,16 @@ class VeraCacheRefresher
         $thisMonthTotal = $repository->findOneByVariable("thisMonthTotal");
         
         //Get the new week values
-        $resultsLastWeekStart = $this->getMultipleValuesByTime(20, 22, strtotime("-2 Monday"));
-        $resultsLastWeekStop = $this->getMultipleValuesByTime(20, 22, strtotime("-1 Sunday"));
-        $resultsThisWeekStart = $this->getMultipleValuesByTime(20, 22, strtotime("-1 Monday"));
+        $resultsLastWeekStart = $this->getMultipleValuesByTime(20, 22, strtotime("-2 Monday", strtotime("tomorrow")));
+        $resultsLastWeekStop = $this->getMultipleValuesByTime(20, 22, strtotime("last sunday", strtotime("tomorrow")));
+        $resultsThisWeekStart = $this->getMultipleValuesByTime(20, 22, strtotime("last monday", strtotime("tomorrow")));
         $resultsThisNow = $this->getMultipleValuesByTime(20, 22, time());
         
         //Set last week
-        $lastWeekStartLow->setValue($resultsLastWeekStart[0]);
-        $lastWeekStartHigh->setValue($resultsLastWeekStart[1]);
-        $lastWeekStopLow->setValue($resultsLastWeekStop[0]);
-        $lastWeekStopHigh->setValue($resultsLastWeekStop[1]);
+        $lastWeekStartLow->setValueAndUrl($resultsLastWeekStart[0]);
+        $lastWeekStartHigh->setValueAndUrl($resultsLastWeekStart[1]);
+        $lastWeekStopLow->setValueAndUrl($resultsLastWeekStop[0]);
+        $lastWeekStopHigh->setValueAndUrl($resultsLastWeekStop[1]);
         $lastWeekLow->setValue($lastWeekStopLow->getValue() - $lastWeekStartLow->getValue());
         $lastWeekHigh->setValue($lastWeekStopHigh->getValue() - $lastWeekStartHigh->getValue());
         $lastWeekTotal->setValue($lastWeekLow->getValue() + $lastWeekHigh->getValue());
@@ -68,10 +68,10 @@ class VeraCacheRefresher
         $em->flush();
         
         //Set this week
-        $thisWeekStartLow->setValue($resultsThisWeekStart[0]);
-        $thisWeekStartHigh->setValue($resultsThisWeekStart[1]);
-        $thisWeekStopLow->setValue($resultsThisNow[0]);
-        $thisWeekStopHigh->setValue($resultsThisNow[1]);
+        $thisWeekStartLow->setValueAndUrl($resultsThisWeekStart[0]);
+        $thisWeekStartHigh->setValueAndUrl($resultsThisWeekStart[1]);
+        $thisWeekStopLow->setValueAndUrl($resultsThisNow[0]);
+        $thisWeekStopHigh->setValueAndUrl($resultsThisNow[1]);
         $thisWeekLow->setValue($thisWeekStopLow->getValue() - $thisWeekStartLow->getValue());
         $thisWeekHigh->setValue($thisWeekStopHigh->getValue() - $thisWeekStartHigh->getValue());
         $thisWeekTotal->setValue($thisWeekLow->getValue() + $thisWeekHigh->getValue());
@@ -84,10 +84,10 @@ class VeraCacheRefresher
         $resultsThisMonthStart = $this->getMultipleValuesByTime(20, 22, strtotime(date('Y-m-01')));
         
         //Set last Month
-        $lastMonthStartLow->setValue($resultsLastMonthStart[0]);
-        $lastMonthStartHigh->setValue($resultsLastMonthStart[1]);
-        $lastMonthStopLow->setValue($resultsLastMonthStop[0]);
-        $lastMonthStopHigh->setValue($resultsLastMonthStop[1]);
+        $lastMonthStartLow->setValueAndUrl($resultsLastMonthStart[0]);
+        $lastMonthStartHigh->setValueAndUrl($resultsLastMonthStart[1]);
+        $lastMonthStopLow->setValueAndUrl($resultsLastMonthStop[0]);
+        $lastMonthStopHigh->setValueAndUrl($resultsLastMonthStop[1]);
         $lastMonthLow->setValue($lastMonthStopLow->getValue() - $lastMonthStartLow->getValue());
         $lastMonthHigh->setValue($lastMonthStopHigh->getValue() - $lastMonthStartHigh->getValue());
         $lastMonthTotal->setValue($lastMonthLow->getValue() + $lastMonthHigh->getValue());
@@ -95,10 +95,10 @@ class VeraCacheRefresher
         $em->flush();
         
         //Set this Month
-        $thisMonthStartLow->setValue($resultsThisMonthStart[0]);
-        $thisMonthStartHigh->setValue($resultsThisMonthStart[1]);
-        $thisMonthStopLow->setValue($resultsThisNow[0]);
-        $thisMonthStopHigh->setValue($resultsThisNow[1]);
+        $thisMonthStartLow->setValueAndUrl($resultsThisMonthStart[0]);
+        $thisMonthStartHigh->setValueAndUrl($resultsThisMonthStart[1]);
+        $thisMonthStopLow->setValueAndUrl($resultsThisNow[0]);
+        $thisMonthStopHigh->setValueAndUrl($resultsThisNow[1]);
         $thisMonthLow->setValue($thisMonthStopLow->getValue() - $thisMonthStartLow->getValue());
         $thisMonthHigh->setValue($thisMonthStopHigh->getValue() - $thisMonthStartHigh->getValue());
         $thisMonthTotal->setValue($thisMonthLow->getValue() + $thisMonthHigh->getValue());
@@ -110,11 +110,29 @@ class VeraCacheRefresher
         $url = $this->server . sprintf($this->dmString2, $time, $time, $channel1, $channel2);
         echo $url . "\n";
         $rawResponse = json_decode(file_get_contents($url));
-    
+        
+        $valueChannel1 = new Value();
+        $valueChannel1->channel = $channel1;
+        $valueChannel1->url = $url;
+        $valueChannel1->value = $rawResponse->series[0]->data[0][1];
+        
+        $valueChannel2 = new Value();
+        $valueChannel2->channel = $channel1;
+        $valueChannel2->url = $url;
+        $valueChannel2->value = $rawResponse->series[1]->data[0][1];
+        
         return array(
-            $rawResponse->series[0]->data[0][1],
-            $rawResponse->series[1]->data[0][1]
+            $valueChannel1,
+            $valueChannel2
         );
-    }
+    }    
 }
+
+class Value
+{
+     public $channel;
+     public $url;
+     public $value;
+}
+
    

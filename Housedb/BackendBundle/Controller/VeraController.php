@@ -18,7 +18,7 @@ use BackendBundle\ClientModels\TemperatureGraph;
 /**
  * @Route("/vera")
  */
-class VeraController extends Controller
+class VeraController extends FrameworkController
 {
     private $server = "http://10.0.0.15";
     private $requestString = "/port_3480/data_request?id=status&output_format=json&DeviceNum=%d";
@@ -45,13 +45,7 @@ class VeraController extends Controller
         $clientModel->lastMonthTotal = $repository->findOneByVariable("lastMonthTotal")->getValue();
         $clientModel->thisMonthTotal = $repository->findOneByVariable("thisMonthTotal")->getValue();
         
-        $serializer = new Serializer(array(new GetSetMethodNormalizer()), array('json' => new JsonEncoder()));
-        $json = $serializer->serialize($clientModel, 'json');
-    
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
-    
-        return $response;
+        return parent::Json($clientModel);
     }
     
     /**
@@ -67,6 +61,16 @@ class VeraController extends Controller
         $rawResponse = json_decode(file_get_contents($url));
         
         return $rawResponse->series[0]->data[0][1];
+    }
+    
+    /**
+     * @Route("/temperaturegraph/getbuttons")
+     */
+    public function getButtons(){
+        $repository = $this->getDoctrine()->getRepository('BackendBundle\Entity\Device');
+        $devices = $repository->findAll();
+    
+        return parent::Json($devices);
     }
     
     /**
@@ -88,12 +92,6 @@ class VeraController extends Controller
                 break;
         }
         
-        $serializer = new Serializer(array(new GetSetMethodNormalizer()), array('json' => new JsonEncoder()));
-        $json = $serializer->serialize($clientModel, 'json');
-        
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
-        
-        return $response;
-    }    
+        return parent::Json($clientModel);
+    }
 }
