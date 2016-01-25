@@ -1,0 +1,29 @@
+﻿<div class="container">
+    <div class="block-header">
+        <h2>Welcome to the god games - Janssen style!</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-2x fa-user"></i>
+                        </span>
+                        <div class="fg-line">
+                            <input class="form-control" type="text" placeholder="Name" data-ng-model="user.Name"/>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm m-t-10 waves-effect" data-ng-click="submitUser()" type="submit">
+                        <span data-ng-show="user.ID == 0">
+                            Submit name
+                        </span>
+                        <span data-ng-show="user.ID != 0">
+                            Change name
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

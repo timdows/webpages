@@ -1,0 +1,25 @@
+﻿<div class="container">
+    <div class="block-header">
+        <h2>Add a question to the God Games</h2>
+    </div>
+    <div class="card">
+        <div class="card-body card-padding">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-2x fa-question-circle"></i>
+                        </span>
+                        <div class="fg-line">
+                            <select ng-options="subject as subject.Name for subject in addQuestion.subjects" ng-model="addQuestion.newQuestion.Subject"></select><br/>
+                            <input class="form-control" type="text" placeholder="Question" data-ng-model="addQuestion.newQuestion.QuestionString"/>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm m-t-10 waves-effect" data-ng-click="submitQuestion()" type="submit">
+                        Submit question
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

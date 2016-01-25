@@ -1,0 +1,47 @@
+﻿<div class="container">
+    <div class="block-header">
+        <h2>Select question</h2>
+        <table class="table">
+            <tr>
+                <th>Select</th>
+                <th>Subject</th>
+@*                <th>Vraag</th>*@
+                <th>Submitted lies</th>
+                <th>Selected lies</th>
+                <th>Action</th>
+            </tr>
+            <tr data-ng-repeat="question in allQuestions">
+                <td>
+                    <button class="btn btn-default"
+                            data-ng-class="{active: question.Status == 1, 'btn-danger': question.Status == 4}"
+                            data-ng-click="setQuestionCurrent(question)">
+                        <span data-ng-show="question.Status == 0">Select</span>
+                        <span data-ng-show="question.Status == 1 || question.Status == 2 || question.Status == 3">Selected</span>
+                        <span data-ng-show="question.Status == 4">Ended</span>
+                    </button>
+                </td>
+                <td>{{question.Subject}}</td>
+@*                <td>{{question.Question}}</td>*@
+                <td>{{question.AmountOfAnswers}}</td>
+                <td>{{question.AmountOfLies}}</td>
+                <td>
+                    <button class="btn btn-default btn-info"
+                            data-ng-show="question.Status == 1"
+                            data-ng-click="selectWinningAnswer(question)">
+                        Select lies
+                    </button>
+                    <button class="btn btn-default btn-warning"
+                            data-ng-show="question.Status == 2"
+                            data-ng-click="showScores(question)">
+                        Stop round and check points
+                    </button>
+                    <button class="btn btn-default btn-warning"
+                            data-ng-show="question.Status == 3"
+                            data-ng-click="stopRound(question)">
+                        End round
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

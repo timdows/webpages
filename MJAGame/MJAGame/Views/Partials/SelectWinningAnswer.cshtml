@@ -1,0 +1,35 @@
+﻿<div class="container">
+    <div class="block-header">
+        <h2>Select the winning lie</h2>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="pull-right">
+                <button class="btn btn-default" data-ng-click="stopSubmittingAnswers()">
+                    Close question and back to overview
+                </button>
+            </div>
+            <h3>{{allAnswers.question.Subject.Name}}</h3>
+            <h3>{{allAnswers.question.QuestionString}}</h3>
+        </div>
+        <table class="table">
+            <tr>
+                <th>Select</th>
+@*                <th>Naam</th>*@
+                <th>Submitted lie</th>
+            </tr>
+            <tr data-ng-repeat="answer in allAnswers.answers">
+                <td>
+                    <button class="btn btn-default"
+                            data-ng-class="{active: answer.Correct}"
+                            data-ng-click="setWinningAnswer(answer)">
+                        <span data-ng-show="!answer.Correct">Selecteer</span>
+                        <span data-ng-show="answer.Correct">Geselecteerd</span>
+                    </button>
+                </td>
+@*                <td>{{answer.UserName}}</td>*@
+                <td>{{answer.Answer}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

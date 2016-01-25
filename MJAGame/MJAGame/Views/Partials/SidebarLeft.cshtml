@@ -1,0 +1,36 @@
+﻿<div class="sidebar-inner c-overflow">
+    <div class="profile-menu">
+        <a href="" data-ng-click="selectOverview('name')">
+            <div class="profile-info">
+                Name: {{user.Name}}
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </a>
+    </div>
+    <ul class="main-menu">
+        <li data-ng-show="user.ID != 0 && user.IsMarten">
+            <a data-ui-sref="home"
+               data-ng-click="selectOverview('selectQuestion')">
+                <i class="zmdi zmdi-home"></i> Select question
+            </a>
+        </li>
+        <li data-ng-show="user.ID != 0 && !user.IsMarten">
+            <a data-ui-sref="home"
+               data-ng-click="selectOverview('currentQuestion')">
+                <i class="zmdi zmdi-home"></i> Current question
+            </a>
+        </li>
+        <li data-ng-show="user.ID != 0 && !user.IsMarten">
+            <a data-ui-sref="home"
+               data-ng-click="selectOverview('addQuestion')">
+                <i class="zmdi zmdi-home"></i> Add question
+            </a>
+        </li>
+        <li>
+            <a data-ui-sref="home"
+               data-ng-click="selectOverview('scores')">
+                <i class="zmdi zmdi-home"></i> Score overview
+            </a>
+        </li>
+    </ul>
+</div>

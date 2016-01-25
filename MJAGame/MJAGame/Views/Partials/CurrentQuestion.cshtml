@@ -1,0 +1,102 @@
+﻿<div class="container">
+    <div class="block-header">
+        <h2>Current question</h2>
+    </div>
+    <div class="card"
+         data-ng-show="currentQuestion.NoQuestionSelected">
+        <div class="card-header">
+            <h3>No question selected by Marten</h3>
+        </div>
+    </div>
+    <div class="card"
+         data-ng-show="currentQuestion.ShowingScores">
+        <div class="card-header">
+            <h3>The scores</h3>
+            <h3>{{userScores.question.Subject.Name}} - {{userScores.question.QuestionString}}</h3>
+            Submitted by the god "{{userScores.question.SubmittedUser.Name}}"
+            <div class="card-body card-padding" data-ng-show="currentQuestion.Answer.ID != 0">
+                <h4>Correct lie (+500) by "{{userScores.correctAnswer.User.Name}}"</h4>
+                "{{userScores.correctAnswer.AnswerString}}"<br/>
+                <div data-ng-show="userScores.correctAnswer.ChosenBy.length == 0">
+                    <h4>Chosen by nobody...</h4>
+                </div>
+                <div data-ng-show="userScores.correctAnswer.ChosenBy.length > 0">
+                    <h4>Chosen by (+{{100 * userScores.correctAnswer.ChosenBy.length}})</h4>
+                    <span data-ng-repeat="user in userScores.correctAnswer.ChosenBy">{{user.Name}}<br /></span>
+                </div>
+                <hr/>
+                <h4>Other lies</h4>
+                <table class="table">
+                    <tr>
+                        <th>Lie</th>
+                        <th>By</th>
+                        <th>Chosen by</th>
+                        <th>Points</th>
+                    </tr>
+                    <tr data-ng-repeat="incorrectAnswer in userScores.answersOfQuestion">
+                        <td>{{incorrectAnswer.AnswerString}}</td>
+                        <td>{{incorrectAnswer.User.Name}}</td>
+                        <td>
+                            <span data-ng-show="incorrectAnswer.ChosenBy.length == 0"><i>Chosen by nobody...</i></span>
+                            <span data-ng-show="incorrectAnswer.ChosenBy.length > 0">
+                                <span data-ng-repeat="user in incorrectAnswer.ChosenBy">
+                                    {{user.Name}}<br/>
+                                </span>
+                            </span>
+                        </td>
+                        <td>+{{incorrectAnswer.ChosenBy.length * 100}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card"
+         data-ng-show="!currentQuestion.NoQuestionSelected && !currentQuestion.ShowingScores">
+        <div class="card-header">
+            <h3>{{currentQuestion.Question.Subject}}</h3>
+            <h3>{{currentQuestion.Question.Question}}</h3>
+        </div>
+        <div data-ng-show="currentQuestion.Question.Status == 1">
+            <div class="card-body card-padding"
+                 data-ng-show="currentQuestion.Answer.ID == 0">
+                <div class="form-group">
+                    <div class="fg-line">
+                        <input type="text" placeholder="Lie" class="form-control input-lg" data-ng-model="answerObject.answer">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm m-t-10 waves-effect"
+                        data-ng-click="submitAnswer(answerString)"
+                        type="submit">
+                    Submit lie
+                </button>
+            </div>
+            <div class="card-body card-padding" data-ng-show="currentQuestion.Answer.ID != 0">
+                Submitted lies: {{currentQuestion.AmountOfAnswers}}
+            </div>
+        </div>
+        <div data-ng-show="currentQuestion.Question.Status == 2">
+            <div class="card-body card-padding" data-ng-show="!currentQuestion.UserSelectedLie">
+                <h4>Select the best lie for points</h4>
+                Your own lie is not in this list
+                <table class="table">
+                    <tr>
+                        <th>Select</th>
+                        <th>Lie</th>
+                    </tr>
+                    <tr data-ng-repeat="lie in currentQuestion.SelectLiesList">
+                        <td>
+                            <button class="btn btn-default" data-ng-click="selectAnswer(lie)">
+                                Select
+                            </button>
+                        </td>
+                        <td>{{lie.Answer}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-body card-padding" data-ng-show="currentQuestion.UserSelectedLie">
+                You picked "{{currentQuestion.UserSelectedLie.AnswerString}}"<br/>
+                Waiting for Marten to end this round
+            </div>
+        </div>
+    </div>
+</div>

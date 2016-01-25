@@ -1,0 +1,9 @@
+﻿.root-body {
+    background-image: url("../img/gameofgods.jpg");
+    background-size: 100% auto;
+}
+.root-score-table {
+    background-color: #000;background-color: rgba(0, 0, 0, 0.4);
+    color: antiquewhite;
+    font-size: x-large;
+}

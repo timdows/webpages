@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Game of Gods";
+}
+
+<!DOCTYPE html>
+<!--[if IE 9 ]>
+<html class="ie9" data-ng-app="mjaGame" data-ng-controller="mjaGameClientController">
+ <![endif]-->
+<![if IE 9 ]>
+<html data-ng-app="mjaGame" data-ng-controller="mjaGameClientController">
+<![endif]>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/mjagame/css")
+</head>
+<body data-ng-class="{ 'modal-open': sidebarToggle.left === true, 'root-body': user.Name == 'root' }">
+    <data ui-view></data>
+    
+    <!-- Older IE warning message -->
+    <!--[if lt IE 9]>
+        <div class="ie-warning">
+            Niet ondersteund
+        </div>
+    <![endif]-->
+
+    @Scripts.Render("~/mjagame/jquery")
+    @Scripts.Render("~/mjagame/angular")
+    @Scripts.Render("~/mjagame/angularmodules")
+    @Scripts.Render("~/mjagame/vendorscommon")
+    <!--[if IE 9 ]>@Scripts.Render("~/mjagame/ie9placeholoder")<![endif]-->
+    @Scripts.Render("~/mjagame/app")
+
+</body>
+</html>
