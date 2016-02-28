@@ -1,0 +1,77 @@
+﻿@using Microsoft.ApplicationInsights.Extensibility
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MysensorListener</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">MysensorListener</a>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <script src="~/lib/signalr/jquery.signalR.js"></script>
+        <script src="~/signalr/hubs"></script>
+
+        <script type="text/javascript">
+        $(function () {
+            // Declare a proxy to reference the hub.
+            var mysensors = $.connection.mysensorsHub;
+            // Create a function that the hub can call to broadcast messages.
+            mysensors.client.broadcastMessage = function (datetime, message) {
+//                console.log(datetime);
+//                console.log(message);
+                // Html encode display name and message.
+                var encodedDatetime = $('<div />').text(datetime).html();
+                var encodedMsg = $('<div />').text(message).html();
+                // Add the message to the page.
+                $('#messages').append('<li><strong>' + encodedDatetime
+                    + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+            };
+
+            mysensors.client.broadcastObject = function(datetime, messageStructure) {
+                //console.log(messageStructure);
+                $('#messageObjects tr:first').after(
+                    '<tr>' +
+                    '<td>' + datetime + '</td>' +
+                    '<td>' + messageStructure.NodeID + '</td>' +
+                    '<td>' + messageStructure.ChildSensorID + '</td>' +
+                    '<td>' + messageStructure.VeraDevice.Name + '</td>' +
+                    '<td>' + messageStructure.VeraDevice.VeraRoom.Name + '</td>' +
+                    '<td>' + messageStructure.MessageTypeString + '</td>' +
+                    '<td>' + messageStructure.Ack + '</td>' +
+                    '<td>' + messageStructure.SubtypeString + '</td>' +
+                    '<td>' + messageStructure.Payload + '</td>' +
+                    '</tr>');
+            };
+
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+
+            });
+        });
+        </script>
+
+        @RenderSection("scripts", required: false)
+        </body>
+    </html>
