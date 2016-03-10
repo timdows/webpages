@@ -51,7 +51,15 @@ namespace MysensorListener.Controllers.NRF24
 
                 while (true)
                 {
-                    // Wait for the asynchronous action to complete
+                    // Check if we should upload new configuration
+                    if (_nrf24State.RequestUploadConfiguration)
+                    {
+                        _nrf24State.RequestUploadConfiguration = false;
+                        UploadConfiguration(serialPort);
+                    }
+
+                    //TODO if no data is coming in, it will wait forever without the option to write new configuration
+                    // Wait for the asynchronous read action to complete
                     await ReadDataAsync(serialPort);
                 }
             }
@@ -64,6 +72,7 @@ namespace MysensorListener.Controllers.NRF24
 
             var bytesRead = await readStringTask;
             _rawData += Encoding.ASCII.GetString(buffer, 0, bytesRead);
+            _nrf24State.RawReceviedDebug += Encoding.ASCII.GetString(buffer, 0, bytesRead);
 
             // Check if a newline has received, indicating that a complete message should have read
             var lastIndexOfPrintln = _rawData.LastIndexOf("\r\n", StringComparison.Ordinal);
@@ -102,10 +111,6 @@ namespace MysensorListener.Controllers.NRF24
 
                 // Create the NRF24Data part
                 nrf24Structure.NRF24Data = CreateNRF24Data(nrf24Structure);
-
-                
-
-                
 
                 SendObject(nrf24Structure);
             }
@@ -264,6 +269,31 @@ namespace MysensorListener.Controllers.NRF24
             }
 
             return nrf24Mysensor;
+        }
+
+        private void UploadConfiguration(SerialPort serialPort)
+        {
+            var configuration = new byte[15];
+            configuration[0] = 0x4E; //lenAndType
+            configuration[1] = (byte)_generalSettings.RfChannel;
+            configuration[2] = (byte)_generalSettings.DataRate;
+            configuration[3] = (byte)_generalSettings.AddressLength;
+            configuration[4] = 0x04; //addressPromiscLen
+
+            var baseAddress = NRF24Helpers.GetBytesFromHexString(_generalSettings.BaseAddress);
+            configuration[5] = baseAddress[7];
+            configuration[6] = baseAddress[6];
+            configuration[7] = baseAddress[5];
+            configuration[8] = baseAddress[4];
+            configuration[9] = baseAddress[3];
+            configuration[10] = baseAddress[2];
+            configuration[11] = baseAddress[1];
+            configuration[12] = baseAddress[0];
+
+            configuration[13] = (byte)_generalSettings.CrcLength;
+            configuration[14] = (byte)_generalSettings.MaximumPayloadSize;
+
+            serialPort.BaseStream.Write(configuration, 0, configuration.Length);
         }
     }
 }
