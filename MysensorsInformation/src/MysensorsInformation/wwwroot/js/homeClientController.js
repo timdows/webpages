@@ -1,9 +1,12 @@
 ﻿"use strict";
 
 app.controller("homeClientController", [
-    "$scope", "$http",  "growl",
-    function($scope, $http, growl) {
+    "$scope", "$http", "signalRHubProxy", "growl",
+    function ($scope, $http, signalRHubProxy, growl)
+    {
+        var nrf24HubProxy = signalRHubProxy(signalRHubProxy.defaultServer, "NRF24Hub");
         $scope.records = [];
+        $scope.uploadRequested = false;
 
         $scope.gridOptions = {
             enableSorting: true,
@@ -25,7 +28,6 @@ app.controller("homeClientController", [
                 { field: "Editable", visible: false }
             ]
         };
-
 
         // http://ui-grid.info/docs/#/tutorial/201_editable
         $scope.gridOptions.onRegisterApi = function (gridApi)
@@ -55,7 +57,8 @@ app.controller("homeClientController", [
 
         $scope.getSettings = function() {
             $http.get("home/getsettings").then(function(response) {
-                $scope.records = response.data;
+                $scope.records = response.data.records;
+                $scope.uploadRequested = response.data.uploadRequested;
             });
         };
 
@@ -70,5 +73,27 @@ app.controller("homeClientController", [
                 height: val + "px"
             };
         };
+
+        $scope.requestUpload = function ()
+        {
+            $http.get("home/requestupload").then(function (response)
+            {
+                if (response.data)
+                {
+                    growl.success("Upload of configuration requested", { ttl: 2000 });
+                    $scope.uploadRequested = true;
+                }
+                else
+                {
+                    growl.error("Something went wrong requesting the upload");
+                }
+            });
+        };
+
+        nrf24HubProxy.on("broadcastUploadConfigurationDone", function ()
+        {
+            growl.success("Configuration uploaded", { ttl: 2000 });
+            $scope.uploadRequested = false;
+        });
     }
 ]);

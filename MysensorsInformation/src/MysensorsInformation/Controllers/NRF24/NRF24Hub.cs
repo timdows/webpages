@@ -38,6 +38,18 @@ namespace MysensorListener.Controllers.NRF24
             context.Clients.All.broadcastObject(nrf24Structure);
         }
 
+        private void SendRawMessage(string rawMessage)
+        {
+            var context = _connectionManager.GetHubContext<NRF24Hub>();
+            context.Clients.All.broadcastRawMessage(rawMessage);
+        }
+
+        private void SendUploadConfigurationDone()
+        {
+            var context = _connectionManager.GetHubContext<NRF24Hub>();
+            context.Clients.All.broadcastUploadConfigurationDone();
+        }
+
         public async void StartSerialClient()
         {
             using (var serialPort = new SerialPort(
@@ -54,8 +66,10 @@ namespace MysensorListener.Controllers.NRF24
                     // Check if we should upload new configuration
                     if (_nrf24State.RequestUploadConfiguration)
                     {
-                        _nrf24State.RequestUploadConfiguration = false;
                         UploadConfiguration(serialPort);
+
+                        _nrf24State.RequestUploadConfiguration = false;
+                        SendUploadConfigurationDone();
                     }
 
                     //TODO if no data is coming in, it will wait forever without the option to write new configuration
@@ -72,7 +86,6 @@ namespace MysensorListener.Controllers.NRF24
 
             var bytesRead = await readStringTask;
             _rawData += Encoding.ASCII.GetString(buffer, 0, bytesRead);
-            _nrf24State.RawReceviedDebug += Encoding.ASCII.GetString(buffer, 0, bytesRead);
 
             // Check if a newline has received, indicating that a complete message should have read
             var lastIndexOfPrintln = _rawData.LastIndexOf("\r\n", StringComparison.Ordinal);
@@ -89,6 +102,7 @@ namespace MysensorListener.Controllers.NRF24
             foreach (var message in messages)
             {
                 _nrf24State.CountOfReceivedMessages++;
+                SendRawMessage(message);
 
                 // Every message has three parts splitted by a space
                 // - record length & message type

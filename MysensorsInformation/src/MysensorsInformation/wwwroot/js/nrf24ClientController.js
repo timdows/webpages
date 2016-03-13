@@ -6,6 +6,8 @@ app.controller("nrf24ClientController", [
         var nrf24HubProxy = signalRHubProxy(signalRHubProxy.defaultServer, "NRF24Hub");
 
         $scope.nrf24Structures = [];
+        $scope.rawMessages = [];
+        $scope.showType = "grid";
 
         $scope.gridOptions = {
             enableSorting: false,
@@ -44,9 +46,16 @@ app.controller("nrf24ClientController", [
             ]
         };
 
-        nrf24HubProxy.on("broadcastObject", function(nrf24Structure) {
+        nrf24HubProxy.on("broadcastObject", function (nrf24Structure)
+        {
             $scope.nrf24Structures.unshift(nrf24Structure);
             //console.log(nrf24Structure);
+        });
+
+        nrf24HubProxy.on("broadcastRawMessage", function (rawMessage)
+        {
+            $scope.rawMessages.unshift(rawMessage);
+            //console.log(rawMessage);
         });
 
         $scope.getTableHeight = function ()
@@ -56,6 +65,19 @@ app.controller("nrf24ClientController", [
 
             return {
                 height: val + "px"
+            };
+        };
+
+        $scope.show = function (type)
+        {
+            switch (type)
+            {
+                case "grid":
+                    $scope.showType = "grid";
+                    break;
+                case "raw":
+                    $scope.showType = "raw";
+                    break;
             };
         };
     }

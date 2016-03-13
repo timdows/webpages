@@ -55,12 +55,6 @@ namespace MysensorListener.Controllers.Mysensors
                     var bytes = stream.Read(data, 0, data.Length);
                     _rawData += Encoding.ASCII.GetString(data, 0, bytes);
 
-                    //if (string.IsNullOrWhiteSpace(rawReceivedString))
-                    //    continue;
-
-                    //if (!rawReceivedString.Contains((char) 10))
-                    //    continue;
-
                     // Check if a newline has received, indicating that a complete message should have read
                     var lastIndexOfPrintln = _rawData.LastIndexOf((char)10);
 
@@ -72,10 +66,6 @@ namespace MysensorListener.Controllers.Mysensors
 
                     // Split message if more than one have been received
                     var messages = completeMessages.Split((char)10).Where(a_item => !string.IsNullOrWhiteSpace(a_item));
-
-                    // Split message if more than one have been received
-                    //var messages = rawReceivedString.Split((char)10)
-                    //    .Where(a_item => !string.IsNullOrWhiteSpace(a_item));
 
                     foreach (var message in messages)
                     {

@@ -43,7 +43,7 @@ namespace MysensorListener.Controllers
             records.AddRange(HomeController.ProcessObject(_mysensorsState, false, true));
             records.AddRange(HomeController.ProcessObject(_veraSettings, false, true));
 
-            return Json(records);
+            return Json(new { records, uploadRequested = _nrf24State.RequestUploadConfiguration });
         }
 
         public JsonResult PostSettings([FromBody] SettingsDTO settingsDTO)
@@ -52,10 +52,6 @@ namespace MysensorListener.Controllers
                 return Json(false);
             
             //TODO change to reflexion
-            //object obj = typeof(GeneralSettings).GetProperty(settingsDTO.Name);
-            //obj = settingsDTO.Value;
-            //_generalSettings.MysensorsIpAddress = settingsDTO.Value;
-
             switch(settingsDTO.Name)
             {
                 case "VeraIpAddress":
@@ -96,8 +92,12 @@ namespace MysensorListener.Controllers
                     break;
             }
 
-            _nrf24State.RequestUploadConfiguration = true;
+            return Json(true);
+        }
 
+        public JsonResult RequestUpload()
+        {
+            _nrf24State.RequestUploadConfiguration = true;
             return Json(true);
         }
 

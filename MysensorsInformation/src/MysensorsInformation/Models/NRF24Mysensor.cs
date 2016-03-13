@@ -46,6 +46,12 @@ namespace MysensorListener.Models
                         bytes[1] = 0x00;
                         var shortResult = BitConverter.ToInt16(bytes, 0);
                         return shortResult.ToString(CultureInfo.InvariantCulture);
+                    case MysensorsEnums.PayloadType.INT16:
+                        bytes = NRF24Helpers.GetBytesFromBitArray(this.PayloadBitArray);
+                        if (bytes.Length < 2)
+                            return "INT16 error";
+                        var int16Result = BitConverter.ToInt16(bytes, 0);
+                        return int16Result.ToString(CultureInfo.InvariantCulture);
                     default:
                         //return NRF24Helpers.BitArrayToString(this.PayloadBitArray);
                         return NRF24Helpers.GetHexStringFromBitArray(this.PayloadBitArray);

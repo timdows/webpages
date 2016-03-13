@@ -61,11 +61,6 @@ namespace MysensorListener.Settings
                 // Get all the arduino mysensor devices
                 foreach (var device in json["devices"])
                 {
-                    //if(device["altid"]?.ToString() == "9;255")
-                    //{
-                    //    var a = "b";
-                    //}
-
                     // It should be a child of the gateway
                     if (device["id_parent"] == null || device["id_parent"].ToObject<long>() != gateway.ID)
                         continue;

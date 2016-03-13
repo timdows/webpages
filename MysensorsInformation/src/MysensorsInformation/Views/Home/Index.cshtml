@@ -1,6 +1,12 @@
 ﻿<div class="container" 
      ng-controller="homeClientController"
      style="margin-top: 20px">
+    <div class="pull-right">
+        <button class="btn btn-info" ng-click="requestUpload()">
+            <span ng-show="!uploadRequested">Upload new configuration to arduino sniffer</span>
+            <span ng-show="uploadRequested">Upload requested</span>
+        </button>
+    </div>
     The table below shows the settings and state of the application.<br/>
     The general settings can be changed in the appsettings.json file.<br/>
     <div ui-grid-auto-resize

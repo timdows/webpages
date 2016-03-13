@@ -1,12 +1,8 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MysensorListener.Controllers;
-using MysensorListener.Controllers.NRF24;
-using MysensorListener.Models;
 using MysensorListener.Settings;
 
 namespace MysensorListener

@@ -720,30 +720,6 @@
           "lib/net451/Microsoft.AspNet.Mvc.ViewFeatures.dll": {}
         }
       },
-      "Microsoft.AspNet.Mvc.WebApiCompatShim/6.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-rc1-final",
-          "Microsoft.AspNet.WebApi.Client": "5.2.2",
-          "Microsoft.AspNet.WebUtilities": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Net.Http",
-          "System.Runtime.Serialization",
-          "System.Xml"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Mvc.WebApiCompatShim.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Mvc.WebApiCompatShim.dll": {}
-        }
-      },
       "Microsoft.AspNet.PageExecutionInstrumentation.Interfaces/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -935,21 +911,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Tooling.Razor.dll": {}
-        }
-      },
-      "Microsoft.AspNet.WebApi.Client/5.2.2": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "6.0.4"
-        },
-        "frameworkAssemblies": [
-          "System.Net.Http"
-        ],
-        "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
         }
       },
       "Microsoft.AspNet.WebUtilities/1.0.0-rc1-final": {
@@ -2528,30 +2489,6 @@
           "lib/net451/Microsoft.AspNet.Mvc.ViewFeatures.dll": {}
         }
       },
-      "Microsoft.AspNet.Mvc.WebApiCompatShim/6.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-rc1-final",
-          "Microsoft.AspNet.WebApi.Client": "5.2.2",
-          "Microsoft.AspNet.WebUtilities": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Net.Http",
-          "System.Runtime.Serialization",
-          "System.Xml"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Mvc.WebApiCompatShim.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Mvc.WebApiCompatShim.dll": {}
-        }
-      },
       "Microsoft.AspNet.PageExecutionInstrumentation.Interfaces/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -2746,21 +2683,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Tooling.Razor.dll": {}
-        }
-      },
-      "Microsoft.AspNet.WebApi.Client/5.2.2": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "6.0.4"
-        },
-        "frameworkAssemblies": [
-          "System.Net.Http"
-        ],
-        "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
         }
       },
       "Microsoft.AspNet.WebUtilities/1.0.0-rc1-final": {
@@ -4345,30 +4267,6 @@
           "lib/net451/Microsoft.AspNet.Mvc.ViewFeatures.dll": {}
         }
       },
-      "Microsoft.AspNet.Mvc.WebApiCompatShim/6.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc.Formatters.Json": "6.0.0-rc1-final",
-          "Microsoft.AspNet.WebApi.Client": "5.2.2",
-          "Microsoft.AspNet.WebUtilities": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Net.Http",
-          "System.Runtime.Serialization",
-          "System.Xml"
-        ],
-        "compile": {
-          "lib/net451/Microsoft.AspNet.Mvc.WebApiCompatShim.dll": {}
-        },
-        "runtime": {
-          "lib/net451/Microsoft.AspNet.Mvc.WebApiCompatShim.dll": {}
-        }
-      },
       "Microsoft.AspNet.PageExecutionInstrumentation.Interfaces/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -4563,21 +4461,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Tooling.Razor.dll": {}
-        }
-      },
-      "Microsoft.AspNet.WebApi.Client/5.2.2": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "6.0.4"
-        },
-        "frameworkAssemblies": [
-          "System.Net.Http"
-        ],
-        "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
         }
       },
       "Microsoft.AspNet.WebUtilities/1.0.0-rc1-final": {
@@ -5943,20 +5826,6 @@
         "Microsoft.AspNet.Mvc.ViewFeatures.nuspec"
       ]
     },
-    "Microsoft.AspNet.Mvc.WebApiCompatShim/6.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "e1NoSlH/9VvzH9ozv7XB6qqIFCL5+QSKRoDYcbAQpJVsy9qcmY8eBo1IkpQM/SSejQdyY5/27a2P9T6EtIRFnw==",
-      "files": [
-        "lib/dotnet5.4/Microsoft.AspNet.Mvc.WebApiCompatShim.dll",
-        "lib/dotnet5.4/Microsoft.AspNet.Mvc.WebApiCompatShim.xml",
-        "lib/net451/Microsoft.AspNet.Mvc.WebApiCompatShim.dll",
-        "lib/net451/Microsoft.AspNet.Mvc.WebApiCompatShim.xml",
-        "Microsoft.AspNet.Mvc.WebApiCompatShim.6.0.0-rc1-final.nupkg",
-        "Microsoft.AspNet.Mvc.WebApiCompatShim.6.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.AspNet.Mvc.WebApiCompatShim.nuspec"
-      ]
-    },
     "Microsoft.AspNet.PageExecutionInstrumentation.Interfaces/1.0.0-rc1-final": {
       "type": "package",
       "serviceable": true,
@@ -6107,20 +5976,6 @@
         "Microsoft.AspNet.Tooling.Razor.1.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.Tooling.Razor.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.Tooling.Razor.nuspec"
-      ]
-    },
-    "Microsoft.AspNet.WebApi.Client/5.2.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "YVq+s0WeXrPxJk57CoElbtMYf95j76uJcW6nue3Cs4eIer9sgUp4rasSo0gALX3ls1Zf2jMceOLik9X/sJyrwA==",
-      "files": [
-        "lib/net45/System.Net.Http.Formatting.dll",
-        "lib/net45/System.Net.Http.Formatting.xml",
-        "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.dll",
-        "lib/portable-wp8+netcore45+net45+wp81+wpa81/System.Net.Http.Formatting.xml",
-        "Microsoft.AspNet.WebApi.Client.5.2.2.nupkg",
-        "Microsoft.AspNet.WebApi.Client.5.2.2.nupkg.sha512",
-        "Microsoft.AspNet.WebApi.Client.nuspec"
       ]
     },
     "Microsoft.AspNet.WebUtilities/1.0.0-rc1-final": {
@@ -7522,7 +7377,6 @@
       "Microsoft.AspNet.IISPlatformHandler >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Mvc >= 6.0.0-rc1-final",
       "Microsoft.AspNet.Mvc.TagHelpers >= 6.0.0-rc1-final",
-      "Microsoft.AspNet.Mvc.WebApiCompatShim >= 6.0.0-rc1-final",
       "Microsoft.AspNet.Server.Kestrel >= 1.0.0-rc1-final",
       "Microsoft.AspNet.SignalR.Server >= 3.0.0-*",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-rc1-final",

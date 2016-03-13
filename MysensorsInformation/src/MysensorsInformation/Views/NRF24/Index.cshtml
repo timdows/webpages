@@ -1,10 +1,24 @@
-﻿<div
-    ng-controller="nrf24ClientController"
-    class="row"
-    style="margin-top: 20px;">
-    <div
-        ui-grid-auto-resize
-        ng-style="getTableHeight()"
-        ui-grid="gridOptions">
+﻿<div ng-controller="nrf24ClientController"
+     class="row"
+     style="margin-top: 20px;">
+    <div class="container" style="margin-bottom: 10px;">
+        <button class="btn btn-default" ng-class="{active: showType == 'grid'}" ng-click="show('grid')">
+            Show grid
+        </button>
+        <button class="btn btn-default"" ng-class="{active: showType == 'raw'}" ng-click="show('raw')">
+            Show raw
+        </button>
+    </div>
+    <div ng-show="showType == 'grid'"
+         ui-grid-auto-resize
+         ng-style="getTableHeight()"
+         ui-grid="gridOptions">
+    </div>
+    <div class="container" ng-show="showType == 'raw'">
+        Every message has three parts splitted by a space<br/>
+        - record length & message type<br/>
+        - serial header<br />
+        - packet data<br /><br />
+        <span ng-repeat="message in rawMessages">{{message}}<br /></span>
     </div>
 </div>

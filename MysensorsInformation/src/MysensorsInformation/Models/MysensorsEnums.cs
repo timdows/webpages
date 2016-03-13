@@ -140,7 +140,8 @@
         public enum ProtocolVersion
         {
             V1_13 = 1,
-            V2_14 = 2
+            V2_14 = 2,
+            V2_15 = 6
         }
     }
 }
