@@ -1,0 +1,69 @@
+﻿<div class="container">
+    <div>
+        <h2>Select question</h2>
+        <table class="table" ng-show="!runningQuestion.ID">
+            <tr>
+                <th>Select</th>
+                <th>Subject</th>
+                <th>Question</th>
+                @*<th>Submitted lies</th>
+                <th>Selected lies</th>
+                <th>Action</th>*@
+            </tr>
+            <tr data-ng-repeat="question in allQuestions">
+                <td>
+                    <button class="btn btn-default"
+                            data-ng-class="{active: question.Status == 1, 'btn-danger': question.Status == 4}"
+                            data-ng-click="setQuestionCurrent(question)">
+                        <span data-ng-show="question.Status == 0">Select</span>
+                        <span data-ng-show="question.Status == 1 || question.Status == 2 || question.Status == 3">Selected</span>
+                        <span data-ng-show="question.Status == 4">Ended</span>
+                    </button>
+                </td>
+                <td>{{question.Subject}}</td>
+                <td>{{question.Question}}</td>
+                @*<td>{{question.AmountOfAnswers}}</td>
+    <td>{{question.AmountOfLies}}</td>
+    <td>
+        <button class="btn btn-default btn-info"
+                data-ng-show="question.Status == 1"
+                data-ng-click="selectWinningAnswer(question)">
+            Select lies
+        </button>
+        <button class="btn btn-default btn-warning"
+                data-ng-show="question.Status == 2"
+                data-ng-click="showScores(question)">
+            Stop round and check points
+        </button>
+        <button class="btn btn-default btn-warning"
+                data-ng-show="question.Status == 3"
+                data-ng-click="stopRound(question)">
+            End round
+        </button>
+    </td>*@
+            </tr>
+        </table>
+        <div ng-show="runningQuestion.ID">
+            <span>{{runningQuestion.QuestionString}}</span><br/><br />
+            <button class="btn btn-default"
+                    ng-disabled="true">
+                Entering lies ({{runningQuestion.AmountOfAnswers}})
+            </button><br /><br />
+            <button class="btn btn-default"
+                    ng-disabled="runningQuestion.Status != 1"
+                    data-ng-click="changeQuestionStatus(runningQuestion.ID, 2)">
+                Select lies ({{runningQuestion.AmountOfLies}}<span ng-show="runningQuestion.AnsweredByDennis"> +D</span><span ng-show="runningQuestion.AnsweredBySandra"> +S</span>)
+            </button><br /><br />
+            <button class="btn btn-default"
+                    ng-disabled="runningQuestion.Status != 2"
+                    data-ng-click="changeQuestionStatus(runningQuestion.ID, 3)">
+                Stop round and check points
+            </button><br /><br />
+            <button class="btn btn-default"
+                    ng-disabled="runningQuestion.Status != 3"
+                    data-ng-click="changeQuestionStatus(runningQuestion.ID, 4)">
+                End round
+            </button><br />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿<div class="container">
+    <div class="block-header">
+        <h2>Scores</h2>
+    </div>
+    <div data-ng-class="{'card': user.Name != 'root'}">
+        <div class="card-body card-padding">
+            <table class="table" data-ng-class="{'root-score-table': user.Name == 'root'}">
+                <tr>
+                    <th>Total points</th>
+                    <th>Name</th>
+                    <th data-ng-repeat="subject in userTotalScores.subjects">{{subject.Name}}</th>
+                </tr>
+                <tr data-ng-class="{'active': score.User.ID === user.ID}" data-ng-repeat="score in userTotalScores.listScoreOverview">
+                    <td>{{score.TotalPoints}}</td>
+                    <td>{{score.User.Name}}</td>
+                    <td data-ng-repeat="subject in score.Subjects">{{subject.Points}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

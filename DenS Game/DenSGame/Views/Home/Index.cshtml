@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "D&S = 60";
+}
+
+<!DOCTYPE html>
+<!--[if IE 9 ]>
+<html class="ie9" data-ng-app="densGame" data-ng-controller="densGameClientController">
+ <![endif]-->
+<![if IE 9 ]>
+<html data-ng-app="densGame" data-ng-controller="densGameClientController">
+<![endif]>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/densgame/css")
+</head>
+<body data-ng-class="{ 'modal-open': sidebarToggle.left === true, 'root-body': user.IsRoot }">
+    <data ui-view></data>
+    
+    <!-- Older IE warning message -->
+    <!--[if lt IE 9]>
+        <div class="ie-warning">
+            Niet ondersteund
+        </div>
+    <![endif]-->
+
+    @Scripts.Render("~/densgame/jquery")
+    @Scripts.Render("~/densgame/angular")
+    @Scripts.Render("~/densgame/angularmodules")
+    @Scripts.Render("~/densgame/vendorscommon")
+    <!--[if IE 9 ]>@Scripts.Render("~/densgame/ie9placeholoder")<![endif]-->
+    @Scripts.Render("~/densgame/app")
+
+</body>
+</html>

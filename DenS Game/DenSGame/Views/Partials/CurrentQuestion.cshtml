@@ -1,0 +1,87 @@
+﻿<div class="container">
+    <div class="block-header">
+        <h2>Current question</h2>
+    </div>
+    <div class="card"
+         data-ng-show="currentQuestion.NoQuestionSelected">
+        <div class="card-header">
+            <h3>No question selected by the quizmaster</h3>
+        </div>
+    </div>
+    <div class="card"
+         data-ng-show="currentQuestion.ShowingScores">
+        <div class="card-header">
+            <h3>The scores for question - {{userScores.question.QuestionString}}</h3>
+            Question submitted by "{{userScores.question.SubmittedUser.Name}}"
+        </div>
+        <table class="table table-condensed">
+            <tr>
+                <th>Player</th>
+                <th>Lie</th>
+                <th>Chosen by</th>
+                <th>Points</th>
+            </tr>
+            <tr data-ng-class="{'active': answer.User.ID === user.ID}" data-ng-repeat="answer in userScores.answersOfQuestion">
+                <td>{{answer.User.Name}}</td>
+                <td>{{answer.AnswerString}}</td>
+                <td>
+                    <span data-ng-show="answer.ChosenBy.length == 0 && !answer.PickedByDennis && !answer.PickedBySandra"><i>Chosen by nobody...</i><br/></span>
+                    <span data-ng-show="answer.ChosenBy.length > 0">
+                        <span data-ng-repeat="user in answer.ChosenBy">
+                            {{user.Name}}<br/>
+                        </span>
+                    </span>
+                    <span ng-show="answer.PickedByDennis" style="color: goldenrod">Dennis<br/></span>
+                    <span ng-show="answer.PickedBySandra" style="color: goldenrod">Sandra<br /></span>
+                </td>
+                <td>
+                    +{{answer.ChosenBy.length * 100}}<br/>
+                    <span ng-show="!answer.UserPickedDSAnswer && !answer.PickedByDennis && !answer.PickedBySandra" style="color: goldenrod">+0</span>
+                    <span ng-show="answer.UserPickedDSAnswer && !answer.PickedByDennis && !answer.PickedBySandra" style="color: goldenrod">+50</span>
+                    <span ng-show="answer.PickedByDennis && !answer.PickedBySandra" style="color: goldenrod">+250<br /></span>
+                    <span ng-show="answer.PickedBySandra && !answer.PickedByDennis" style="color: goldenrod">+250<br /></span>
+                    <span ng-show="answer.PickedBySandra && answer.PickedByDennis" style="color: goldenrod">+500<br /></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card"
+         data-ng-show="!currentQuestion.NoQuestionSelected && !currentQuestion.ShowingScores">
+        <div class="card-header">
+            <h3>{{currentQuestion.Question.Subject}} - {{currentQuestion.Question.Question}}</h3>
+        </div>
+        <div data-ng-show="currentQuestion.Question.Status == 1">
+            <div class="card-body card-padding"
+                 data-ng-show="currentQuestion.Answer.ID == 0">
+                <div class="form-group">
+                    <div class="fg-line">
+                        <input type="text" placeholder="Lie" class="form-control input-lg" data-ng-model="answerObject.answer">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm m-t-10 waves-effect"
+                        data-ng-click="submitAnswer(answerString)"
+                        type="submit">
+                    Submit lie
+                </button>
+            </div>
+            <div class="card-body card-padding" data-ng-show="currentQuestion.Answer.ID != 0">
+                Total submitted lies: {{currentQuestion.AmountOfAnswers}}
+            </div>
+        </div>
+        <div data-ng-show="currentQuestion.Question.Status == 2">
+            <div class="card-body card-padding" data-ng-show="!currentQuestion.UserSelectedLie">
+                <h4>Select the best lie for points</h4>
+                Your own lie is not in this list
+                <div data-ng-repeat="lie in currentQuestion.SelectLiesList">
+                    <button class="btn btn-default" data-ng-click="selectAnswer(lie)">
+                        {{lie.Answer}}
+                    </button><br /><br />
+                </div>
+            </div>
+            <div class="card-body card-padding" data-ng-show="currentQuestion.UserSelectedLie">
+                You picked lie "{{currentQuestion.UserSelectedLie.AnswerString}}"<br/>
+                Waiting for the quizmaster to end this round
+            </div>
+        </div>
+    </div>
+</div>

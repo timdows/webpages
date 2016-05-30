@@ -1,0 +1,22 @@
+﻿<div class="container" ng-show="clientModel.question">
+    <div class="block-header">
+        <h2>Select the winning <span ng-show="user.IsDennis">Dennis</span><span ng-show="user.IsSandra">Sandra</span> lie</h2>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3>{{clientModel.question.Subject.Name}} - {{clientModel.question.QuestionString}}</h3><br/>
+            <div data-ng-repeat="answer in clientModel.answers">
+                <button class="btn btn-default"
+                        data-ng-class="{active: (answer.PickedByDennis && user.IsDennis) || (answer.PickedBySandra && user.IsSandra)}"
+                        data-ng-click="setWinningAnswer(answer)">
+                    {{answer.Answer}}
+                </button><br /><br />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" ng-show="!clientModel.question">
+    <div class="block-header">
+        <h2>Waiting for the quizmaster to select a question</h2>
+    </div>
+</div>

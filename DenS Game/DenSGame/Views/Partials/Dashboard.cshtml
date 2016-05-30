@@ -1,0 +1,41 @@
+﻿<header id="header" data-ng-include="'partials/header.html'"></header>
+
+<section id="main">
+    <aside id="sidebar"
+           data-ng-include="'partials/sidebarleft.html'"
+           data-ng-class="{ 'toggled': sidebarToggle.left === true }"
+           ng-controller="sidebarLeftClientController">
+    </aside>
+    <section id="content">
+        <div class="container"
+             data-ng-if="dashboardType.name"
+             data-ng-include="'partials/name.html'"
+             ng-controller="nameClientController">
+        </div>
+        <div class="container"
+             data-ng-if="dashboardType.scores"
+             data-ng-include="'partials/scores.html'"
+             ng-controller="scoresClientController">
+        </div>
+        <div class="container"
+             data-ng-if="dashboardType.currentQuestion"
+             data-ng-include="'partials/currentquestion.html'"
+             ng-controller="currentQuestionClientController">
+        </div>
+        <div class="container"
+             data-ng-if="dashboardType.addQuestion"
+             data-ng-include="'partials/addquestion.html'"
+             ng-controller="addQuestionClientController">
+        </div>
+        <div class="container"
+             data-ng-if="dashboardType.selectQuestion"
+             data-ng-include="'partials/selectquestion.html'"
+             ng-controller="selectQuestionClientController">
+        </div>
+        <div class="container"
+             data-ng-if="dashboardType.selectWinningAnswer"
+             data-ng-include="'partials/selectWinningAnswer.html'"
+             ng-controller="selectWinningAnswerClientController">
+        </div>
+    </section>
+</section>
