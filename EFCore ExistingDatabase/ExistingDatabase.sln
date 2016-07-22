@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{75AA6E34-23F6-49C3-8090-250D9C3895E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19AAFFCC-E80A-4C11-9989-70DDED89CAF9}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ExistingDatabase", "src\ExistingDatabase\ExistingDatabase.xproj", "{376850D3-51D7-4E6E-B671-6F20B57C0592}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{376850D3-51D7-4E6E-B671-6F20B57C0592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376850D3-51D7-4E6E-B671-6F20B57C0592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376850D3-51D7-4E6E-B671-6F20B57C0592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{376850D3-51D7-4E6E-B671-6F20B57C0592}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{376850D3-51D7-4E6E-B671-6F20B57C0592} = {75AA6E34-23F6-49C3-8090-250D9C3895E0}
+	EndGlobalSection
+EndGlobal
