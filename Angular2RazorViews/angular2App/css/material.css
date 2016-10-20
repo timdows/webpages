@@ -1,0 +1,11 @@
+﻿@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import '~angular2-flex/layout.css';
+
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.md-nav-list-active div{
+    background-color: #ffd740;
+}
