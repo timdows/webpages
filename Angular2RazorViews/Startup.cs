@@ -56,17 +56,13 @@ namespace Angular2
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    "jsonRoute",
-                    "api/{controller}/{action}.json",
-                    new {controller = "Home", action = "Index"});
-                routes.MapRoute(
-                    "viewRoute",
-                    "view/{controller}/{action}.html",
-                    new {controller = "Home", action = "Index"});
-            });
+app.UseMvc(routes =>
+{
+    routes.MapRoute(
+        "viewRoute",
+        "view/{controller}/{action}.html",
+        new {controller = "Home", action = "Index"});
+});
         }
     }
 }
