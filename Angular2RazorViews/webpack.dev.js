@@ -26,7 +26,8 @@ module.exports = {
     output: {
         path: "./wwwroot/",
         filename: 'dist/[name].bundle.js',
-        publicPath: "/"
+        publicPath: "/",
+        chunkFilename: "[name].chunk.js" // the chunk files are created by es6-promise-loader.
     },
 
     resolve: {
@@ -43,7 +44,11 @@ module.exports = {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'ts',
+                //loader: 'ts',
+                loaders: [
+                    "awesome-typescript-loader",
+                    "angular2-load-children-loader"
+                ],
                 query: {
                     'ignoreDiagnostics': [
                         2403, // 2403 -> Subsequent variable declarations

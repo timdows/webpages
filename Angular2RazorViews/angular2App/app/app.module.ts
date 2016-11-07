@@ -11,13 +11,14 @@ import { Angular2FlexModule } from "angular2-flex";
 import { AUTH_PROVIDERS } from "angular2-jwt";
 
 import { ProjectComponent } from "./project/project.component";
+//import { AboutComponent } from "./about/about.component";
 
 @NgModule({
     imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
-        routing,
+		routing,
         HttpModule,
         JsonpModule,
         MaterialModule.forRoot(),
@@ -25,7 +26,8 @@ import { ProjectComponent } from "./project/project.component";
     ],
     declarations: [
         AppComponent,
-		ProjectComponent
+		ProjectComponent,
+		//AboutComponent
     ],
     providers: [
         Configuration,

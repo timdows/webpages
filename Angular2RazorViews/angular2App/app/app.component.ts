@@ -10,4 +10,13 @@ export class AppComponent {
     constructor(private router: Router) {
     }
 
+	goto(page) {
+        switch (page) {
+        case "about":
+            this.router.navigate(["/about"]);
+            break;
+        
+        }
+    }
+
 }

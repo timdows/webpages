@@ -14,7 +14,6 @@ var forms_1 = require("@angular/forms");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
 var app_constants_1 = require("./app.constants");
-var app_routes_1 = require("./app.routes");
 var http_1 = require("@angular/http");
 var material_1 = require("@angular/material");
 var angular2_flex_1 = require("angular2-flex");
@@ -29,7 +28,6 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 common_1.CommonModule,
                 forms_1.FormsModule,
-                app_routes_1.routing,
                 http_1.HttpModule,
                 http_1.JsonpModule,
                 material_1.MaterialModule.forRoot(),
