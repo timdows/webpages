@@ -1,0 +1,13 @@
+
+.row {
+	height: 50%;
+	overflow: none;
+
+	> .image {
+		height: 100%;
+		width: auto;
+		background-position: center; 
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+}
