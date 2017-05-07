@@ -24,13 +24,13 @@ export class AppComponent implements OnInit {
 			.subscribe((data) => {
 				this.allImages = data.json();
 
-				this.topImages.push(new DisplayImage(this.setImage(0)));
-				this.topImages.push(new DisplayImage(this.setImage(0)));
-				this.topImages.push(new DisplayImage(this.setImage(1)));
+				this.topImages.push(new DisplayImage(this.allImages[1]));
+				this.topImages.push(new DisplayImage(this.allImages[1]));
+				this.topImages.push(new DisplayImage(this.allImages[2]));
 
-				this.bottomImages.push(new DisplayImage(this.setImage(2)));
-				this.bottomImages.push(new DisplayImage(this.setImage(3)));
-				this.bottomImages.push(new DisplayImage(this.setImage(3)));
+				this.bottomImages.push(new DisplayImage(this.allImages[2]));
+				this.bottomImages.push(new DisplayImage(this.allImages[2]));
+				this.bottomImages.push(new DisplayImage(this.allImages[3]));
 
 				this.changeImages();
 			});
@@ -39,13 +39,13 @@ export class AppComponent implements OnInit {
 	private changeImages() {
 		if (this.switch) {
 			let topNumber = this.randomIntFromInterval(0, this.allImages.length - 1);
-			let newTopImage = new DisplayImage(this.setImage(topNumber));
+			let newTopImage = new DisplayImage(this.allImages[topNumber]);
 			this.topImages.push(newTopImage);
 			this.topImages.shift();
 		}
 		else {
 			let bottomNumber = this.randomIntFromInterval(0, this.allImages.length - 1);
-			let newBottomImage = new DisplayImage(this.setImage(bottomNumber));
+			let newBottomImage = new DisplayImage(this.allImages[bottomNumber]);
 			this.bottomImages.push(newBottomImage);
 			this.bottomImages.shift();
 		}
@@ -57,10 +57,6 @@ export class AppComponent implements OnInit {
 		}, 7 * 1000);
 	}
 
-	private setImage(imageNumber: number) {
-		return `url('/${this.allImages[imageNumber]}')`;
-	}
-
 	private randomIntFromInterval(min, max) {
 		var number = Math.floor(Math.random() * (max - min + 1) + min);
 		return number;
@@ -68,6 +64,15 @@ export class AppComponent implements OnInit {
 }
 
 export class DisplayImage {
-	constructor(public url: string) {
+	directory: string;
+	url: string;
+	
+	constructor(path: string) {
+		this.url = `url('/${path}')`;
+
+		let split = path.split('/');
+		if (split.length === 3) {
+			this.directory = split[1];
+		}
 	}
 }

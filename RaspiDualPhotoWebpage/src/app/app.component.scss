@@ -1,7 +1,7 @@
 .bottomRow,
 .topRow {
 	position: absolute;
-	height: 50%;
+	height: 45%;
 	width: 100%;
 	overflow: none;
 	display: block;
@@ -24,7 +24,23 @@
 		}
 	}
 }
+.bottomRowText,
+.topRowText {
+	position: absolute;
+	height: 5%;
+	width: 100%;
+	overflow: none;
+	display: block;
+	top: 45%;
+
+	color: white;
+	text-align: center;
+	font-family: helvetica;
+}
 
 .bottomRow {
 	top: 50%;
+}
+.bottomRowText {
+	top: 95%;
 }

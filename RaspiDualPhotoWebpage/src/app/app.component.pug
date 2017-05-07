@@ -1,4 +1,8 @@
 .topRow
 	.image(*ngFor="let image of topImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
+.topRowText
+	h3 {{topImages[1]?.directory}}
 .bottomRow
 	.image(*ngFor="let image of bottomImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
+.bottomRowText
+	h3 {{bottomImages[1]?.directory}}
