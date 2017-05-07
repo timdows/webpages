@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
 	topImages = new Array<DisplayImage>();
 	bottomImages = new Array<DisplayImage>();
 
+	private switch = true;
+
 	constructor(
 		private configuration: Configuration,
 		private http: Http) { }
@@ -22,31 +24,33 @@ export class AppComponent implements OnInit {
 			.subscribe((data) => {
 				this.allImages = data.json();
 
-				let newTopImage = new DisplayImage(this.setImage(0));
-				this.topImages.push(newTopImage);
-				this.topImages.push(newTopImage);
-				this.topImages.push(newTopImage);
+				this.topImages.push(new DisplayImage(this.setImage(0)));
+				this.topImages.push(new DisplayImage(this.setImage(0)));
+				this.topImages.push(new DisplayImage(this.setImage(1)));
 
-				let newBottomImage = new DisplayImage(this.setImage(1));
-				this.bottomImages.push(newBottomImage);
-				this.bottomImages.push(newBottomImage);
-				this.bottomImages.push(newBottomImage);
+				this.bottomImages.push(new DisplayImage(this.setImage(2)));
+				this.bottomImages.push(new DisplayImage(this.setImage(3)));
+				this.bottomImages.push(new DisplayImage(this.setImage(3)));
 
 				this.changeImages();
 			});
 	}
 
 	private changeImages() {
-		var topNumber = this.randomIntFromInterval(0, this.allImages.length - 1);
-		var bottomNumber = this.randomIntFromInterval(0, this.allImages.length - 1);
+		if (this.switch) {
+			let topNumber = this.randomIntFromInterval(0, this.allImages.length - 1);
+			let newTopImage = new DisplayImage(this.setImage(topNumber));
+			this.topImages.push(newTopImage);
+			this.topImages.shift();
+		}
+		else {
+			let bottomNumber = this.randomIntFromInterval(0, this.allImages.length - 1);
+			let newBottomImage = new DisplayImage(this.setImage(bottomNumber));
+			this.bottomImages.push(newBottomImage);
+			this.bottomImages.shift();
+		}
 
-		let newTopImage = new DisplayImage(this.setImage(topNumber));
-		this.topImages.push(newTopImage);
-		this.topImages.shift();
-
-		let newBottomImage = new DisplayImage(this.setImage(bottomNumber));
-		this.bottomImages.push(newBottomImage);
-		this.bottomImages.shift();
+		this.switch = !this.switch;
 
 		setTimeout(() => {
 			this.changeImages();
@@ -59,13 +63,11 @@ export class AppComponent implements OnInit {
 
 	private randomIntFromInterval(min, max) {
 		var number = Math.floor(Math.random() * (max - min + 1) + min);
-		console.log(number);
 		return number;
 	}
 }
 
 export class DisplayImage {
-	constructor(public url: string){
-
+	constructor(public url: string) {
 	}
 }
