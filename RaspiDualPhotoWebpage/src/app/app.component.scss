@@ -1,12 +1,27 @@
-.row {
+.bottomRow,
+.topRow {
+	position: absolute;
 	height: 50%;
+	width: 100%;
 	overflow: none;
+	display: block;
 
 	> .image {
+		position: absolute;
 		height: 100%;
-		width: auto;
+		width: 100%;
 		background-position: center; 
 		background-repeat: no-repeat;
 		background-size: contain;
+		opacity: 0;
+		transition: transform 2s ease, opacity 1.5s ease;
+
+		&.-active {
+			opacity: 1;
+		}
 	}
+}
+
+.bottomRow {
+	top: 50%;
 }

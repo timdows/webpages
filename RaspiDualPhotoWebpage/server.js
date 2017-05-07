@@ -3,11 +3,15 @@ var app = express()
 var dir = require('node-dir');
 
 app.use(express.static('dist'));
-app.use(express.static('images'));
+app.use('/images', express.static(__dirname + '/images'));
 
 app.get('/images.json', function (req, res) {
-	dir.files('images', function(err, files) { 
-		res.send(files);
+	dir.files('images', function(err, files) {
+		result = [];
+		files.forEach(file => {
+			result.push(file.replace(/\\/g, "/"));
+		});
+		res.send(result);
 	});
 });
 

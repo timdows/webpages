@@ -1,4 +1,4 @@
-.row
-	.image([style.background-image]="topImage")
-.row
-	.image([style.background-image]="bottomImage")
+.topRow
+	.image(*ngFor="let image of topImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
+.bottomRow
+	.image(*ngFor="let image of bottomImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
