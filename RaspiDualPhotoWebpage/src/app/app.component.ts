@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Configuration } from "app/app.configuration";
 import { Http } from "@angular/http";
+import { DisplayImage } from "app/_models/display-image";
 
 @Component({
 	selector: 'app-root',
@@ -20,6 +21,14 @@ export class AppComponent implements OnInit {
 		private http: Http) { }
 
 	ngOnInit(): void {
+		this.getAvailableImages();
+	}
+
+	private getAvailableImages() {
+		// Empty the existing arrays
+		this.topImages = new Array<DisplayImage>();
+		this.bottomImages = new Array<DisplayImage>();
+
 		this.http.get("images.json")
 			.subscribe((data) => {
 				this.allImages = data.json();
@@ -34,6 +43,10 @@ export class AppComponent implements OnInit {
 
 				this.changeImages();
 			});
+
+		setTimeout(() => {
+			this.getAvailableImages();
+		}, 60 * 60 * 1000);
 	}
 
 	private changeImages() {
@@ -60,19 +73,5 @@ export class AppComponent implements OnInit {
 	private randomIntFromInterval(min, max) {
 		var number = Math.floor(Math.random() * (max - min + 1) + min);
 		return number;
-	}
-}
-
-export class DisplayImage {
-	directory: string;
-	url: string;
-	
-	constructor(path: string) {
-		this.url = `url('/${path}')`;
-
-		let split = path.split('/');
-		if (split.length === 3) {
-			this.directory = split[1];
-		}
 	}
 }
