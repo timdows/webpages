@@ -1,14 +1,14 @@
-.topRow
+.topRow(*ngIf="topImage")
 	//- .image(*ngFor="let image of topImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
-	.image([style.background-image]="topImages[0].url")
+	.image([style.background-image]="topImage.url")
 .topRowText
 	//- h3 {{topImages[1]?.directory}}
-	h3 {{topImages[0]?.directory}}
-.bottomRow
+	h3 {{topImage?.directory}}
+.bottomRow(*ngIf="bottomImage")
 	//- .image(*ngFor="let image of bottomImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
-	.image([style.background-image]="bottomImages[0].url")
+	.image([style.background-image]="bottomImage.url")
 .bottomRowText
 	//- h3 {{bottomImages[1]?.directory}}
-	h3 {{bottomImages[0]?.directory}}
+	h3 {{bottomImage?.directory}}
 .countdown
 	| {{countdownMinutes}}:{{countdownSeconds}}

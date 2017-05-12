@@ -12,15 +12,6 @@
 		background-position: center; 
 		background-repeat: no-repeat;
 		background-size: contain;
-		opacity: 0;
-		//transition: opacity 0.5s ease;
-
-		//transform: translateZ(0);
-		//-webkit-transform: translateZ(0);
-
-		&.-active {
-			opacity: 1;
-		}
 	}
 }
 .bottomRowText,

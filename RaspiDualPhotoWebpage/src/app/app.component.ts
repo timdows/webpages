@@ -11,8 +11,8 @@ import { DisplayImage } from "app/_models/display-image";
 export class AppComponent implements OnInit {
 
 	private allImages = [];
-	topImages = new Array<DisplayImage>();
-	bottomImages = new Array<DisplayImage>();
+	topImage: DisplayImage;
+	bottomImage: DisplayImage;
 	countdownMinutes: number;
 	countdownSeconds: number;
 
@@ -32,21 +32,12 @@ export class AppComponent implements OnInit {
 	}
 
 	private getAvailableImages(): void {
-		// Empty the existing arrays
-		this.topImages = new Array<DisplayImage>();
-		this.bottomImages = new Array<DisplayImage>();
-
 		this.http.get("images.json")
 			.subscribe((data) => {
 				this.allImages = data.json();
 
-				this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-				//this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-				//this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-
-				this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-				//this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-				//this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				this.topImage = new DisplayImage(this.allImages[this.getRandomNumber()]);
+				this.bottomImage = new DisplayImage(this.allImages[this.getRandomNumber()]);
 
 				this.changeImages();
 			});
@@ -58,14 +49,10 @@ export class AppComponent implements OnInit {
 
 	private changeImages(): void {
 		if (this.switch) {
-			let newTopImage = new DisplayImage(this.allImages[this.getRandomNumber()]);
-			this.topImages.push(newTopImage);
-			this.topImages.shift();
+			this.topImage = new DisplayImage(this.allImages[this.getRandomNumber()]);
 		}
 		else {
-			let newBottomImage = new DisplayImage(this.allImages[this.getRandomNumber()]);
-			this.bottomImages.push(newBottomImage);
-			this.bottomImages.shift();
+			this.bottomImage = new DisplayImage(this.allImages[this.getRandomNumber()]);
 		}
 
 		this.switch = !this.switch;
