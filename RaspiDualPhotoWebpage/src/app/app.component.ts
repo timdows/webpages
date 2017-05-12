@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 		this.getAvailableImages();
 	}
 
-	private getAvailableImages() {
+	private getAvailableImages(): void {
 		// Empty the existing arrays
 		this.topImages = new Array<DisplayImage>();
 		this.bottomImages = new Array<DisplayImage>();
@@ -33,13 +33,13 @@ export class AppComponent implements OnInit {
 			.subscribe((data) => {
 				this.allImages = data.json();
 
-				this.topImages.push(new DisplayImage(this.allImages[1]));
-				this.topImages.push(new DisplayImage(this.allImages[1]));
-				this.topImages.push(new DisplayImage(this.allImages[2]));
+				this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
 
-				this.bottomImages.push(new DisplayImage(this.allImages[2]));
-				this.bottomImages.push(new DisplayImage(this.allImages[2]));
-				this.bottomImages.push(new DisplayImage(this.allImages[3]));
+				this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
 
 				this.changeImages();
 			});
@@ -49,16 +49,14 @@ export class AppComponent implements OnInit {
 		}, 60 * 60 * 1000);
 	}
 
-	private changeImages() {
+	private changeImages(): void {
 		if (this.switch) {
-			let topNumber = this.randomIntFromInterval(0, this.allImages.length - 1);
-			let newTopImage = new DisplayImage(this.allImages[topNumber]);
+			let newTopImage = new DisplayImage(this.allImages[this.getRandomNumber()]);
 			this.topImages.push(newTopImage);
 			this.topImages.shift();
 		}
 		else {
-			let bottomNumber = this.randomIntFromInterval(0, this.allImages.length - 1);
-			let newBottomImage = new DisplayImage(this.allImages[bottomNumber]);
+			let newBottomImage = new DisplayImage(this.allImages[this.getRandomNumber()]);
 			this.bottomImages.push(newBottomImage);
 			this.bottomImages.shift();
 		}
@@ -70,7 +68,11 @@ export class AppComponent implements OnInit {
 		}, 7 * 1000);
 	}
 
-	private randomIntFromInterval(min, max) {
+	private getRandomNumber(): number {
+		return this.randomIntFromInterval(0, this.allImages.length - 1)
+	}
+
+	private randomIntFromInterval(min, max): number {
 		var number = Math.floor(Math.random() * (max - min + 1) + min);
 		return number;
 	}
