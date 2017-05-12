@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
 	private allImages = [];
 	topImages = new Array<DisplayImage>();
 	bottomImages = new Array<DisplayImage>();
+	countdownMinutes: number;
+	countdownSeconds: number;
 
 	private switch = true;
 
@@ -22,6 +24,11 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getAvailableImages();
+
+		// Get the countdown every second
+		setInterval(() => {
+			this.getCountdown();
+		}, 1000);
 	}
 
 	private getAvailableImages(): void {
@@ -73,7 +80,17 @@ export class AppComponent implements OnInit {
 	}
 
 	private randomIntFromInterval(min, max): number {
-		var number = Math.floor(Math.random() * (max - min + 1) + min);
+		let number = Math.floor(Math.random() * (max - min + 1) + min);
 		return number;
+	}
+
+	// Gets the countdown value from nodejs (server.js) with the seconds the screen will be on
+	private getCountdown(): void {
+		this.http.get("countdown.json")
+			.subscribe((data) => {
+				let countdown = data.json().countdown;
+				this.countdownMinutes = Math.floor(countdown / 60);
+				this.countdownSeconds = countdown % 60;
+			});
 	}
 }

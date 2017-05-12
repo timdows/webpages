@@ -6,3 +6,5 @@
 	.image(*ngFor="let image of bottomImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
 .bottomRowText
 	h3 {{bottomImages[1]?.directory}}
+.countdown
+	| {{countdownMinutes}}:{{countdownSeconds}}

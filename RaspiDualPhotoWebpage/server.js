@@ -16,16 +16,50 @@ app.get('/images.json', function (req, res) {
 	});
 });
 
-app.get('/display-off', function (req, res) {
-	exec("sudo tvservice -o", function (error, stdout, stderr) {
-		res.send("Display off");
+var isDisplayOff = false;
+
+function displayOn() {
+	exec("sudo tvservice -p", function (error, stdout, stderr) {
+		isDisplayOff = false;
 	});
-	
+}
+
+function displayOff() {
+	exec("sudo tvservice -o", function (error, stdout, stderr) {
+		isDisplayOff = true;
+	});
+}
+
+app.get('/display-off', function (req, res) {
+	displayOff();
+	res.send("Executed");
 });
 app.get('/display-on', function (req, res) {
-	exec("sudo tvservice -p", function (error, stdout, stderr) {
-		res.send("Display on");
-	});
+	displayOn();
+	res.send("Executed");
+});
+
+// On for 15 minutes by default
+var countdown = 900;
+var interval = setInterval(() => {
+	if (countdown <= 0) {
+		if (isDisplayOff) {
+			displayOff();
+		}
+	}
+	else {
+		countdown--;
+	}
+}, 1000);
+
+app.get('/display-on-timer', function (req, res) {
+	countdown = 300;
+	displayOn();
+	res.send("Executed");
+});
+
+app.get('/countdown.json', function (req, res) {
+	res.send({countdown});
 });
 
 app.get('/', function (req, res) {

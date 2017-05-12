@@ -13,10 +13,10 @@
 		background-repeat: no-repeat;
 		background-size: contain;
 		opacity: 0;
-		transition: opacity 0.5s ease;
+		//transition: opacity 0.5s ease;
 
-		transform: translateZ(0);
-		-webkit-transform: translateZ(0);
+		//transform: translateZ(0);
+		//-webkit-transform: translateZ(0);
 
 		&.-active {
 			opacity: 1;
@@ -38,7 +38,6 @@
 	> h3 {
 		color: white;
 		text-align: center;
-		font-family: helvetica;
 	}
 }
 
@@ -47,4 +46,14 @@
 }
 .bottomRowText {
 	top: 95%;
+}
+
+.countdown {
+	position: fixed;
+	bottom: 0%;
+	right: 0%;
+	color: white;
+	font-size: x-small;
+	padding-right: .5rem;
+	padding-bottom: .5rem;
 }
