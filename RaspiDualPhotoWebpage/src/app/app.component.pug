@@ -1,10 +1,14 @@
 .topRow
-	.image(*ngFor="let image of topImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
+	//- .image(*ngFor="let image of topImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
+	.image([style.background-image]="topImages[0].url")
 .topRowText
-	h3 {{topImages[1]?.directory}}
+	//- h3 {{topImages[1]?.directory}}
+	h3 {{topImages[0]?.directory}}
 .bottomRow
-	.image(*ngFor="let image of bottomImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
+	//- .image(*ngFor="let image of bottomImages; let i = index", [style.background-image]="image.url", [ngClass]="{'-active': i === 1}")
+	.image([style.background-image]="bottomImages[0].url")
 .bottomRowText
-	h3 {{bottomImages[1]?.directory}}
+	//- h3 {{bottomImages[1]?.directory}}
+	h3 {{bottomImages[0]?.directory}}
 .countdown
 	| {{countdownMinutes}}:{{countdownSeconds}}

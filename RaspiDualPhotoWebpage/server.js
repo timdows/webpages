@@ -54,7 +54,10 @@ var interval = setInterval(() => {
 
 app.get('/display-on-timer', function (req, res) {
 	countdown = 300;
-	displayOn();
+	// Only turn on when its off
+	if (isDisplayOff) {
+		displayOn();
+	}
 	res.send("Executed");
 });
 

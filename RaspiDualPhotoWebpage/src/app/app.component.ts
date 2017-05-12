@@ -41,12 +41,12 @@ export class AppComponent implements OnInit {
 				this.allImages = data.json();
 
 				this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-				this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-				this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				//this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				//this.topImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
 
 				this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-				this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
-				this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				//this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
+				//this.bottomImages.push(new DisplayImage(this.allImages[this.getRandomNumber()]));
 
 				this.changeImages();
 			});
