@@ -42,13 +42,11 @@ app.get('/display-on', function (req, res) {
 // On for 15 minutes by default
 var countdown = 900;
 var interval = setInterval(() => {
-	if (countdown <= 0) {
-		if (isDisplayOff) {
+	if (--countdown <= 0) {
+		// Turn off it is on
+		if (!isDisplayOff) {
 			displayOff();
 		}
-	}
-	else {
-		countdown--;
 	}
 }, 1000);
 
