@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
 	countdownSeconds: number;
 
 	private switch = true;
+	private changeImageTimeout: any;
 
 	constructor(
 		private configuration: Configuration,
@@ -43,6 +44,8 @@ export class AppComponent implements OnInit {
 			});
 
 		setTimeout(() => {
+			// Cancel the existing timeout
+			clearTimeout(this.changeImageTimeout);
 			this.getAvailableImages();
 		}, 60 * 60 * 1000);
 	}
@@ -57,7 +60,7 @@ export class AppComponent implements OnInit {
 
 		this.switch = !this.switch;
 
-		setTimeout(() => {
+		this.changeImageTimeout = setTimeout(() => {
 			this.changeImages();
 		}, 7 * 1000);
 	}
